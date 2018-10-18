@@ -1,0 +1,10 @@
+Sudoku
+encode sudoku - vars		//1 person - Vishrut
+encode domains
+encode constraints
+make constraints binary		//1 person franco
+implement ac3			//1-2 people
+run search
+backtrack if needed		//1 - person
+
+test cases			// James
