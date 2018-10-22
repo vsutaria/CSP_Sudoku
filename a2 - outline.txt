@@ -2,9 +2,9 @@ Sudoku
 encode sudoku - vars		//1 person - Vishrut
 encode domains
 encode constraints
-make constraints binary		//1 person franco
-implement ac3			//1-2 people
+make constraints binary		//1 person - Vishrut
+implement ac3			//1-2 people - Evgeny and Franco
 run search
-backtrack if needed		//1 - person
+backtrack if needed		//1 - Jonathan
 
 test cases			// James
