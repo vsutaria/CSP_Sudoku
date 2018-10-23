@@ -89,3 +89,37 @@ def is_solution_valid(solution):
                 return False
 
     return True
+
+def read_input_file(file_name):
+    """
+    Given a path to a file, return a 2D-array that represents a sudoku puzzle.
+    If a cell in the puzzle is empty, the value of that cell in the array will be None.
+
+    The input file is a comma-delimited file. Each line in the file represents a row
+    in the puzzle. Empty cells in the puzzle should have None in its position.
+    E.g: None,None,None,2,6,None,7,None,1
+
+    Parameters
+    ----------
+    file_name: path to the input file
+
+    Returns
+    -------
+    parsed_sudoku: 2D-array that represents the sudoku puzzle
+    """
+    parsed_sudoku = []
+
+    with open(file_name) as f:
+        for line in f:
+            line = line.strip().split(",")
+            
+            row = []
+            for val in line:
+                if val == "None":
+                    row.append(None)
+                else:
+                    row.append(int(val))
+
+            parsed_sudoku.append(row)
+    
+    return parsed_sudoku
