@@ -54,9 +54,7 @@ def check_num_placement(x,y,value):
     i+=1
   return result
 
-
-
-
+unsolved=[]
 
 for i in range(n):
 #  temp=input().split(",")
@@ -66,7 +64,9 @@ for i in range(n):
     
     if sudoku[i][j]!=None:
 #      print(domains[i][j],i,j)
-      domains[i][j]=sudoku[i][j]
+      domains[i][j]=[sudoku[i][j]]
+    
+    unsolved.append([sudoku[i][j],i,j])
 #  print(domains[i], "indexed domain out of loop",i)
    
 
