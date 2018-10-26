@@ -15,7 +15,7 @@ domains=[None]*9
 for x in range(n):
   domains[x]=[None]*9
   for y in range(n):
-    domains[x][y]=[0,1,2,3,4,5,6,7,8,9]
+    domains[x][y]=[1,2,3,4,5,6,7,8,9]
 
 for x in range(n):
   print(sudoku[x])
@@ -65,12 +65,13 @@ for i in range(n):
     if sudoku[i][j]!=None:
 #      print(domains[i][j],i,j)
       domains[i][j]=[sudoku[i][j]]
-    
-    unsolved.append([sudoku[i][j],i,j])
+    unsolved.append([i,j])
 #  print(domains[i], "indexed domain out of loop",i)
    
 
 for x in range(n):
   print(domains[x])
 
-
+print" "
+for val in unsolved:
+  print val
