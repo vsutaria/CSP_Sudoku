@@ -87,3 +87,25 @@ def test_sudoku_solver():
                  [7,3,1,8,5,2,6,4,9]]
 
     assert output2 == expected2
+
+    input_sudoku3 = [[None,None,None,None,None,None,None,None,None],
+                     [None,None,None,None,None,3,None,8,5],
+                     [None,None,1,None,2,None,None,None,None],
+                     [None,None,None,5,None,7,None,None,None],
+                     [None,None,4,None,None,None,1,None,None],
+                     [None,9,None,None,None,None,None,None,None],
+                     [5,None,None,None,None,None,None,7,3],
+                     [None,None,2,None,1,None,None,None,None],
+                     [None,None,None,None,4,None,None,None,9]]
+    output3 = None # Solve the sudoku here
+    expected3 = [[9,8,7,6,5,4,3,2,1],
+                 [2,4,6,1,7,3,9,8,5],
+                 [3,5,1,9,2,8,7,4,6],
+                 [1,2,8,5,3,7,9,6,4],
+                 [6,3,4,8,9,2,1,5,7],
+                 [7,9,5,4,6,1,8,3,2],
+                 [5,1,9,2,8,6,4,7,3],
+                 [4,7,2,3,1,9,5,6,8],
+                 [8,6,3,7,4,5,2,1,9]]
+
+    assert output3 == expected3
