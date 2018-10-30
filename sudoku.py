@@ -72,6 +72,6 @@ for i in range(n):
 for x in range(n):
   print(domains[x])
 
-print" "
+print(" ")
 for val in unsolved:
-  print val
+  print(val)
