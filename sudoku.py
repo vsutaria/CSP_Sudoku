@@ -1,3 +1,4 @@
+from graphics import *
 n= 9
 inside_n=3
 sudoku=[[None,None,None,2,6,None,7,None,1],
@@ -75,3 +76,24 @@ for x in range(n):
 print(" ")
 for val in unsolved:
   print(val)
+
+win = GraphWin('Face', 361, 361) # give title and dimensions
+
+
+for i in range(9):
+#     x=x+i+40
+#     y=0    
+    x = i * 40 + 20
+    for j in range(9):
+#         y=y+j+40
+        y = j * 40 + 20
+        num=Text(Point(x,y),domains[i][j])
+        test=Rectangle(Point(x-20,y-20),Point(x+20,y+20))
+        test.draw(win)
+        num.draw(win)
+
+
+
+
+win.getMouse()
+win.close()
