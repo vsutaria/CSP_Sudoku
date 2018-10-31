@@ -1,22 +1,24 @@
 def AC3(domains,unsolved): 
-  unfinished=False
   stateStack=[]
-  unsolved.sort(key=len(domains[unsolved[0]][unsolved[1]]),reverse = True) #idk if this works but check changes done to sudoku aswell
-  while not unfinished:
+  # unsolved.sort(key=len(domains[unsolved[0]][unsolved[1]]),reverse = True) #idk if this works but check changes done to sudoku aswell
+  while len(unsolved) != 0:
     current=unsolved.pop(0)
+    print(domains[current[0]][current[1]])
     if len(domains[current[0]][current[1]])==1:
       if not apply_constraints(domains,current):
         revert = stateStack.pop(0)
         domains = revert.domains
         unsolved = revert.unsolved
-        unfinished.append(current)
+        unsolved.append(current)
     else:
-      possibilities = domains[current[0]][current[1]].copy
+      possibilities = domains[current[0]][current[1]].copy()
       for x in possibilities:
         domains[current[0]][current[1]] = [x]
-        state = State(domains.copy,unsolved.copy)
+        state = State(domains.copy(),unsolved.copy())
         stateStack.append(state)
-      unfinished.append(current)
+      unsolved.append(current)
+
+  return domains
 
 
 
@@ -34,19 +36,36 @@ def apply_constraints(domains,current):
     setx.remove(rel_x)
     sety.remove(rel_y)
     
+    current_set = set(domains[current[0]][current[1]])
+
     for n in setx:
       for m in sety:
-        domains[box_y*3+m][box_x*3+n].remove(domains[current[0]][current[1]])
+
+        # Remove current values from the domains of cells
+        # that are in the same box
+        s = set(domains[box_y*3+m][box_x*3+n])
+        set_diff = s - current_set
+
+        domains[box_y*3+m][box_x*3+n] = list(set_diff)
         if (not domains[box_y*3+m][box_x*3+n]):
           return False
 
     for i in range(n-1):
+      # Remove the current values from the domains of cells
+      # that are in the same row
       if not i==y:
-        domains[i][x].remove(domains[current[0]][current[1]]) 
+        s = set(domains[i][x])
+        set_diff = s - current_set
+        domains[i][x] = list(set_diff)
         if (not domains[i][x]):
           return False
+
+      # Remove the current values from the domains of cells
+      # that are in the same column
       if not i==x:
-        domains[y][i].remove(domains[current[0]][current[1]])
+        s = set(domains[y][i])
+        set_diff = s - current_set
+        domains[y][i] = list(set_diff)
         if (not domains[y][i]):
           return False
     return True
@@ -54,6 +73,6 @@ def apply_constraints(domains,current):
 class State:
   domains=[]
   unsolved=[]
-  def __init__(domains, unsolved):
+  def __init__(self,domains, unsolved):
     self.domains = domains
     self.unsolved = unsolved
