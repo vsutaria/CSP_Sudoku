@@ -1,4 +1,5 @@
 from graphics import *
+from utilities import read_input_file, set_neighbors
 from AC3 import AC3
 
 n = 9
@@ -86,20 +87,13 @@ def check_num_placement(x,y,value):
   return result
 
 if __name__ == "__main__":
+
+  sudoku = read_input_file("input.txt")
+  set_neighbors(sudoku)
   
-  sudoku=[[None,None,None,2,6,None,7,None,1],
-          [6,8,None,None,7,None,None,9,None],
-          [1,9,None,None,None,4,5,None,None],
-          [8,2,None,1,None,None,None,4,None],
-          [None,None,4,6,None,2,9,None,None],
-          [None,5,None,None,None,3,None,2,8],
-          [None,None,9,3,None,None,None,7,4],
-          [None,4,None,None,5,None,None,3,6],
-          [None,None,3,None,1,8,2,5,None]]
+  # solved = solve_sudoku(sudoku)
 
-  solved = solve_sudoku(sudoku)
-
-  print(solved)
+  # print(solved)
 
   # for x in range(n):
   #   print(sudoku[x])
