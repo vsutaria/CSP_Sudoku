@@ -1,3 +1,5 @@
+from cell import Cell
+
 def is_solution_valid(solution):
     """
     Check if a sudoku solution is valid
@@ -110,16 +112,61 @@ def read_input_file(file_name):
     parsed_sudoku = []
 
     with open(file_name) as f:
+        line_no = 0
+        default_domain = [1,2,3,4,5,6,7,8,9]
+
         for line in f:
             line = line.strip().split(",")
             
             row = []
-            for val in line:
-                if val == "None":
-                    row.append(None)
+            for i in range(len(line)):
+                if line[i] == "None":
+                    c = Cell(line_no, i, default_domain)
+                    row.append(c)
                 else:
-                    row.append(int(val))
+                    c = Cell(line_no, i, [int(line[i])])
+                    row.append(c)
 
             parsed_sudoku.append(row)
+            line_no += 1
     
     return parsed_sudoku
+
+def set_neighbors(sudoku_grid):
+    """
+    Set the neighbors for the cells in the sudoku grid
+
+    Parameters
+    ----------
+    sudoku_grid: 2D-array of Cell objects representing a sudoku puzzle
+
+    Returns
+    -------
+    Add the neighbors of each cell to the Cell objects in the 2D-array
+    """
+    
+    grid_size = 9
+
+    for x in range(grid_size):
+        for y in range(grid_size):
+
+            # Add neighbors in the same box
+
+            box_x=x//3
+            box_y=y//3
+            setx = [0,1,2]
+            sety = [0,1,2]
+
+            for n in setx:
+                for m in sety:
+                    if (box_y*3 + m) != x or (box_x*3 + n) != y:
+                        sudoku_grid[x][y].add_neighbor(sudoku_grid[box_y*3+m][box_x*3+n])
+
+            for i in range(grid_size):
+                # Add neighbors on the same row
+                if i != y:
+                    sudoku_grid[x][y].add_neighbor(sudoku_grid[x][i])
+
+                # Add neighbors in the same column
+                if i != x:
+                    sudoku_grid[x][y].add_neighbor(sudoku_grid[i][y])
