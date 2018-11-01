@@ -12,7 +12,7 @@ class Cell():
         return self._neighbors
 
     def get_domain(self):
-        return self._domain
+        return self._domain.copy()
 
     def get_position(self):
         return self._position

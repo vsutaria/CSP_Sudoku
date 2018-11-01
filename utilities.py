@@ -210,3 +210,11 @@ def set_neighbors(sudoku_grid):
                 # Add neighbors in the same column
                 if i != x:
                     sudoku_grid[x][y].add_neighbor(sudoku_grid[i][y])
+
+def print_sudoku(sudoku):
+    n = len(sudoku)
+    for i in range(n):
+        for j in range(n):
+            print(sudoku[i][j].get_domain(), end=" ")
+
+        print()
