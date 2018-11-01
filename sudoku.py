@@ -1,6 +1,6 @@
-from graphics import *
+#from graphics import *
 from utilities import read_input_file, set_neighbors, is_solved, create_2d_list_from_sudoku, is_solution_valid
-from AC3_new import ac3, backtrack
+from AC3_new import ac3, backtracking_search
 from sys import setrecursionlimit
 
 n = 9
@@ -97,8 +97,12 @@ if __name__ == "__main__":
 
   backtrack_result = True
   if ac3_result == True and not is_solved(sudoku):
-    backtrack_result = backtrack(sudoku)
-    print("Backtrack result: {}".format(backtrack_result))
+    backtrack_result = backtracking_search(sudoku)
+#    print("Backtrack result: {}".format(backtrack_result))
+    print("Backtrack result:")
+    for i in backtrack_result:
+        for j in i:
+            print(j.get_domain())
 
   if ac3_result == True and backtrack_result == True:
     sudoku_2d = create_2d_list_from_sudoku(sudoku)
