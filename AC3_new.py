@@ -1,5 +1,6 @@
 from utilities import is_solved
 from copy import deepcopy
+import operator
 
 def revise(csp,X_1,X_2):
   
@@ -62,7 +63,7 @@ def m_ac3(csp, v):
 
     while queue:
         print("Current queue length of AC3: {}".format(len(queue)))
-        
+
         current_constraint=queue.pop(0)
         X_i=current_constraint[0]
         X_j=current_constraint[1]
@@ -100,10 +101,11 @@ def backtrack(assignments, csp, is_first):
     
     unassigned_var = select_unassigned_var(csp, is_first)
     unassigned_var_domain = unassigned_var.get_domain()
+    # unassigned_var_domain = num_freq(unassigned_var)
     unassigned_var_position = unassigned_var.get_position()
 
     for val in unassigned_var_domain:
-        # print("{} - trying out value {}".format(unassigned_var_position, val))
+        print("{} - trying out value {}".format(unassigned_var_position, val))
         csp_original = deepcopy(csp)
         assignments_original = assignments.copy()
 
@@ -122,7 +124,7 @@ def backtrack(assignments, csp, is_first):
                 if result != False:
                     return result
         
-        # print("{} - {} - backtracking with value {}".format(unassigned_var_position, unassigned_var_domain, val))
+        print("{} - {} - backtracking with value {}".format(unassigned_var_position, unassigned_var_domain, val))
         csp = csp_original
         assignments = assignments_original
 
@@ -216,3 +218,19 @@ def is_valid_assignment(val, x, y, csp):
                 return False
 
     return True
+
+def num_freq(X):
+    x_domain = X.get_domain()
+    x_neighbors = X.get_neighbors()
+    neighbors_domain = []
+    for neighbor in x_neighbors:
+        neighbors_domain = neighbors_domain + neighbor.get_domain()
+
+    count = {val : neighbors_domain.count(val) for val in x_domain}
+    sorted_count = sorted(count.items(), key=operator.itemgetter(1), reverse=True)
+
+    result = []
+    for p in sorted_count:
+        result.append(p[0])
+
+    return result
