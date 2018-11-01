@@ -52,12 +52,10 @@ def m_ac3(csp, v):
     Maintain arc consistency using AC3 algorithm.
     This AC3 will start with all arcs (X, Y) such that
     Y is unassigned and Y is a neighbor of X
-
     Parameters
     ----------
     csp: The current CSP
     v: X in the (X, Y) pair
-
     Returns
     -------
     True if the CSP is consistent, False otherwise
@@ -84,12 +82,14 @@ def m_ac3(csp, v):
                     queue.append(make_constraint(neighbour,X_i))
     return result
 
-# def backtracking-search(csp):
-#     return backtrack([],csp)
+def backtracking_search(csp):
+     return backtrack([],csp)
 
-def backtrack(csp):
-    if is_solved(csp):
+def backtrack(assignment, csp):
+    if len(assignment)==81:
         return csp
+    #if is_solved(csp):
+    #    return csp
     
     v = select_unassigned_variable(csp)
     v_position = v.get_position()
@@ -100,15 +100,17 @@ def backtrack(csp):
 
         if is_valid_assignment(val, v_position[0], v_position[1], csp):
             csp[v_position[0]][v_position[1]].set_value(val)
-
+            assignment.append([v_position[0], v_position[1],val])
+           
             inference_result = m_ac3(csp, v)
             if inference_result != False:
 
-                backtrack_result = backtrack(csp)
+                backtrack_result = backtrack(assignment,csp)
                 if backtrack_result != False:
                     return backtrack_result
 
         csp = csp_original
+        assignment.remove([v_position[0], v_position[1],val])
 
     return False
 
@@ -131,7 +133,6 @@ def select_unassigned_variable(csp):
 def is_valid_assignment(val, x, y, csp):
     """
     Check if an assignment for a variable violates any of its constraints
-
     Return True if no constraint is violated, False otherwise
     """
     grid_size = len(csp)
