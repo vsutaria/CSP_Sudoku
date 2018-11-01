@@ -93,15 +93,3 @@ if __name__ == "__main__":
       print(sudoku_2d)
       print("Is the solution valid? {}".format(is_solution_valid(sudoku_2d)))
 
-  # if ac3_result == True and backtrack_result == True:
-  #   sudoku_2d = create_2d_list_from_sudoku(sudoku)
-
-  #   print("Is the solution valid? {}".format(is_solution_valid(sudoku_2d)))
-  #   print(sudoku_2d)
-  # else:
-  #   print("Something went wrong")
-
-  # solved = solve_sudoku(sudoku)
-
-  # print(solved)
-
