@@ -166,3 +166,20 @@ def is_valid_assignment(val, x, y, csp):
                 return False
 
     return True
+  def num_freq(X):
+    x_dom=X.get_domain()
+    x_neb= X.get_neighbors()
+
+    temp_doms=[]
+    for neb in x_neb:
+        temp_doms=temp_doms+neb.get_domain()
+
+
+    count={x: temp_doms.count(x) for x in x_dom}
+    temp_dom, c = count.keys(), count.values()
+    #print(temp_dom)
+    sorted_x=sorted(count.items(),key=operator.itemgetter(1))
+    result=[]
+    for i in sorted_x:
+        result.append(i[0])
+    return result
