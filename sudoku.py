@@ -1,6 +1,7 @@
 from graphics import *
-from utilities import read_input_file, set_neighbors
-from AC3 import AC3
+from utilities import read_input_file, set_neighbors, is_solved, create_2d_list_from_sudoku, is_solution_valid
+from AC3_new import ac3, backtrack
+from sys import setrecursionlimit
 
 n = 9
 inside_n=3
@@ -24,34 +25,34 @@ def display_solution(solved_sudoku):
   win.getMouse()
   win.close()
 
-def solve_sudoku(input_sudoku):
+# def solve_sudoku(input_sudoku):
 
-  # Initialize domains
-  domains=[None]*9
-  #constraints= [[[1,2,3,4,5,6,7,8,9]]*n]*n
-  for x in range(n):
-    domains[x]=[None]*9
-    for y in range(n):
-      domains[x][y]=[1,2,3,4,5,6,7,8,9]
+#   # Initialize domains
+#   domains=[None]*9
+#   #constraints= [[[1,2,3,4,5,6,7,8,9]]*n]*n
+#   for x in range(n):
+#     domains[x]=[None]*9
+#     for y in range(n):
+#       domains[x][y]=[1,2,3,4,5,6,7,8,9]
   
-  # Initialize list of unsolved cell indices
-  unsolved=[]
+#   # Initialize list of unsolved cell indices
+#   unsolved=[]
 
-  for i in range(n):
-  #  temp=input().split(",")
-    for j in range(n):
-  #      temp[j]=int(temp[j])
-  #      if temp[j] !=0:
+#   for i in range(n):
+#   #  temp=input().split(",")
+#     for j in range(n):
+#   #      temp[j]=int(temp[j])
+#   #      if temp[j] !=0:
       
-      if input_sudoku[i][j]!=None:
-  #      print(domains[i][j],i,j)
-        domains[i][j]=[input_sudoku[i][j]]
-      unsolved.append([i,j])
-  #  print(domains[i], "indexed domain out of loop",i)
+#       if input_sudoku[i][j]!=None:
+#   #      print(domains[i][j],i,j)
+#         domains[i][j]=[input_sudoku[i][j]]
+#       unsolved.append([i,j])
+#   #  print(domains[i], "indexed domain out of loop",i)
 
-  solved = AC3(domains, unsolved)
+#   solved = AC3(domains, unsolved)
 
-  return solved
+#   return solved
 
 def check_num_placement(x,y,value):
   result= True
@@ -91,6 +92,22 @@ if __name__ == "__main__":
   sudoku = read_input_file("input.txt")
   set_neighbors(sudoku)
   
+  ac3_result = ac3(sudoku)
+  print("First AC3 result: {}".format(ac3_result))
+
+  backtrack_result = True
+  if ac3_result == True and not is_solved(sudoku):
+    backtrack_result = backtrack(sudoku)
+    print("Backtrack result: {}".format(backtrack_result))
+
+  if ac3_result == True and backtrack_result == True:
+    sudoku_2d = create_2d_list_from_sudoku(sudoku)
+
+    print("Is the solution valid? {}".format(is_solution_valid(sudoku_2d)))
+    print(sudoku_2d)
+  else:
+    print("Something went wrong")
+
   # solved = solve_sudoku(sudoku)
 
   # print(solved)

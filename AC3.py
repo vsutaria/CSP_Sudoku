@@ -3,7 +3,10 @@ def AC3(domains,unsolved):
   # unsolved.sort(key=len(domains[unsolved[0]][unsolved[1]]),reverse = True) #idk if this works but check changes done to sudoku aswell
   while len(unsolved) != 0:
     current=unsolved.pop(0)
-    print(domains[current[0]][current[1]])
+
+    print_sudoku_debug(domains)
+    print("\n\n")
+
     if len(domains[current[0]][current[1]])==1:
       if not apply_constraints(domains,current):
         revert = stateStack.pop(0)
@@ -19,8 +22,6 @@ def AC3(domains,unsolved):
       unsolved.append(current)
 
   return domains
-
-
 
 def apply_constraints(domains,current):
     n=9
@@ -69,6 +70,17 @@ def apply_constraints(domains,current):
         if (not domains[y][i]):
           return False
     return True
+
+def print_sudoku_debug(domains):
+  for i in range(9):
+    for j in range(9):
+      if len(domains[i][j]) != 1:
+        print("0", end=" ")
+      else:
+        print(domains[i][j][0], end=" ")
+      
+      if j == 8:
+        print()
 
 class State:
   domains=[]
