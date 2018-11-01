@@ -35,6 +35,8 @@ def ac3(csp):
     queue=initialize_constraints(csp)
 
     while queue:
+        print("Current queue length of AC3: {}".format(len(queue)))
+
         current_constraint=queue.pop(0)
         X_i=current_constraint[0]
         X_j=current_constraint[1]
@@ -59,6 +61,8 @@ def m_ac3(csp, v):
             queue.append(make_constraint(v, neighbor))
 
     while queue:
+        print("Current queue length of AC3: {}".format(len(queue)))
+        
         current_constraint=queue.pop(0)
         X_i=current_constraint[0]
         X_j=current_constraint[1]
@@ -99,7 +103,7 @@ def backtrack(assignments, csp, is_first):
     unassigned_var_position = unassigned_var.get_position()
 
     for val in unassigned_var_domain:
-        print("{} - trying out value {}".format(unassigned_var_position, val))
+        # print("{} - trying out value {}".format(unassigned_var_position, val))
         csp_original = deepcopy(csp)
         assignments_original = assignments.copy()
 
@@ -118,7 +122,7 @@ def backtrack(assignments, csp, is_first):
                 if result != False:
                     return result
         
-        print("{} - {} - backtracking with value {}".format(unassigned_var_position, unassigned_var_domain, val))
+        # print("{} - {} - backtracking with value {}".format(unassigned_var_position, unassigned_var_domain, val))
         csp = csp_original
         assignments = assignments_original
 

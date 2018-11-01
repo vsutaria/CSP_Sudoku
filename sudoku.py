@@ -58,10 +58,11 @@ def display_solution(solved_sudoku):
 
 if __name__ == "__main__":
 
-  sudoku = read_input_file("input_hard.txt")
+  sudoku = read_input_file("input_medium.txt")
   set_neighbors(sudoku)
   
   ac3_result = ac3(sudoku)
+  print()
   print("First AC3 result: {}".format(ac3_result))
 
   # print_sudoku(sudoku)
@@ -69,6 +70,8 @@ if __name__ == "__main__":
   backtrack_result = True
   if ac3_result == True :
     if not is_solved(sudoku):
+      print("Beginning backtracking")
+      print()
       backtrack_result = backtracking_search(sudoku)
 
       if backtrack_result != False:
@@ -86,6 +89,7 @@ if __name__ == "__main__":
         print("Something went wrong")
     else:
       sudoku_2d = create_2d_list_from_sudoku(sudoku)
+      print()
       print(sudoku_2d)
       print("Is the solution valid? {}".format(is_solution_valid(sudoku_2d)))
 
