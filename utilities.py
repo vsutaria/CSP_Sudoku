@@ -1,5 +1,45 @@
 from cell import Cell
 
+def create_2d_list_from_sudoku(sudoku):
+    n = len(sudoku)
+    sudoku_2d = []
+
+    for i in range(n):
+        sudoku_2d.append([])
+        for j in range(n):
+            sudoku_2d[i].append(sudoku[i][j].get_domain()[0])
+
+    return sudoku_2d
+
+def create_sudoku_from_2d_list(sudoku_2d):
+    default_domain = [1,2,3,4,5,6,7,8,9]
+    n = len(sudoku_2d)
+    sudoku = []
+
+    for i in range(n):
+        sudoku.append([])
+        for j in range(n):
+            if sudoku_2d[i][j] is None:
+                c = Cell(i, j, default_domain.copy())
+            else:
+                c = Cell(i, j, [sudoku_2d[i][j]])
+            
+            sudoku[i].append(c)
+
+    return sudoku
+
+def is_solved(solution):
+    n = len(solution)
+    solved = True
+
+    for i in range(n):
+        for j in range(n):
+            if len(solution[i][j].get_domain()) != 1:
+                solved = False
+                break
+    
+    return solved
+
 def is_solution_valid(solution):
     """
     Check if a sudoku solution is valid
@@ -121,7 +161,7 @@ def read_input_file(file_name):
             row = []
             for i in range(len(line)):
                 if line[i] == "None":
-                    c = Cell(line_no, i, default_domain)
+                    c = Cell(line_no, i, default_domain.copy())
                     row.append(c)
                 else:
                     c = Cell(line_no, i, [int(line[i])])
@@ -159,8 +199,8 @@ def set_neighbors(sudoku_grid):
 
             for n in setx:
                 for m in sety:
-                    if (box_y*3 + m) != x or (box_x*3 + n) != y:
-                        sudoku_grid[x][y].add_neighbor(sudoku_grid[box_y*3+m][box_x*3+n])
+                    if (box_y*3 + m) != y or (box_x*3 + n) != x:
+                        sudoku_grid[x][y].add_neighbor(sudoku_grid[box_x*3+n][box_y*3+m])
 
             for i in range(grid_size):
                 # Add neighbors on the same row
